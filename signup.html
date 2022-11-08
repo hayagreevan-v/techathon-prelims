@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="    viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-auth-compat.js"></script>
+    <script>
+       const firebaseApp = firebase.initializeApp({ /* Firebase config */ });
+       const db = firebaseApp.firestore();
+       const auth = firebaseApp.auth();
+    </script>
+<script src="form.js"></script>
+
+    <title>Sign in portal</title>
+  </head>
+  <body>
+    <main>
+      <h1><b>Create New User</b></h1>
+      <form>
+        <fieldset>
+          <legend>User details</legend>
+          <label>
+            <label for="username">Username</label><br />
+            <input
+              id="email"
+              type="email"
+              placeholder="User name"
+              cols="10px"
+              required /></label
+          ><br />
+          <label>
+            <label for="password">Password</label><br />
+            <input
+              id="password"
+              type="text"
+              placeholder="password"
+              maxlength="20"
+              cols="10px"
+              required /></label
+          ><br />
+          <label>
+            <label for="confirmpwd">Confirm Password</label><br />
+            <input
+              id="confirmpwd"
+              type="text"
+              placeholder="re-enter password"
+              maxlength="20"
+              cols="10px"
+              required
+          /></label>
+        </fieldset>
+        <button onclick="signUp()" id="signUp">SignUp</button>
+      </form>
+    </main>
+  </body>
+</html>
