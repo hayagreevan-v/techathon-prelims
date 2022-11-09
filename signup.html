@@ -1,59 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="    viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-auth-compat.js"></script>
-    <script>
-       const firebaseApp = firebase.initializeApp({ /* Firebase config */ });
-       const db = firebaseApp.firestore();
-       const auth = firebaseApp.auth();
-    </script>
-<script src="form.js"></script>
-
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="    viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign in portal</title>
+    <link rel="stylesheet" type="text/css" href="./style2.css" />
   </head>
   <body>
-    <main>
+    <div class="signin-form">
       <h1><b>Create New User</b></h1>
       <form>
-        <fieldset>
-          <legend>User details</legend>
-          <label>
-            <label for="username">Username</label><br />
-            <input
-              id="email"
-              type="email"
-              placeholder="User name"
-              cols="10px"
-              required /></label
-          ><br />
-          <label>
-            <label for="password">Password</label><br />
-            <input
-              id="password"
-              type="text"
-              placeholder="password"
-              maxlength="20"
-              cols="10px"
-              required /></label
-          ><br />
-          <label>
-            <label for="confirmpwd">Confirm Password</label><br />
-            <input
-              id="confirmpwd"
-              type="text"
-              placeholder="re-enter password"
-              maxlength="20"
-              cols="10px"
-              required
-          /></label>
-        </fieldset>
-        <button onclick="signUp()" id="signUp">SignUp</button>
+        <label>
+          <p>Email Id</p>
+          <input
+            id="email"
+            type="text"
+            placeholder="User name"
+            cols="10px"
+            required /></label
+        ><br />
+        <label>
+          <p>Password</p>
+          <input
+            id="password"
+            type="text"
+            placeholder="password"
+            maxlength="20"
+            cols="10px"
+            required /></label
+        ><br />
+        <label>
+          <p>Confirm Password</p>
+          <input
+            id="confirmpwd"
+            type="text"
+            placeholder="re-enter password"
+            maxlength="20"
+            cols="10px"
+            required
+        /></label>
+        <button type="button" id="signUp">SignUp</button>
       </form>
-    </main>
+    </div>
   </body>
 </html>
+
+<script type="module">
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-analytics.js";
+  //import { getAuth, onAuthStateChanged, getRedirectResult } from 'firebase/auth';
+  //import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+  } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
+  import {
+    getDatabase,
+    set,
+    ref,
+    update,
+  } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js";
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDjToIub_kOd6334ksEabRIUiN_UtPXtTw",
+    authDomain: "fir-7d9ee.firebaseapp.com",
+    projectId: "fir-7d9ee",
+    storageBucket: "fir-7d9ee.appspot.com",
+    messagingSenderId: "493771331329",
+    appId: "1:493771331329:web:bfc2182cd7cc18ef40ed00",
+    measurementId: "G-8B04P7MD0P",
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+  const auth = getAuth(app);
+  const database = getDatabase(app);
+
+  signUp.addEventListener("click", (e) => {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+        set(ref(database, "users/" + user.uid), {
+          email: email,
+          password: password,
+        })
+          .then(() => {
+            // Data saved successfully!
+            window.location.replace("welcome.html");
+            alert("SignUp Successfully");
+          })
+          .catch((error) => {
+            // The write failed...
+            alert(error);
+          });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+        alert(errorMessage);
+      });
+  });
+
+  //active user to homepage
+
+  /*
+  onAuthStateChanged(auth, (user) =>{
+    if(user){
+      var user = user.uid;
+      alert("Active user "+email);
+
+    }else{
+      alert("No Active user Found")
+    }
+  })
+*/
+</script>

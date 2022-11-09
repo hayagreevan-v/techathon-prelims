@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Welcome user!</title>
+        <style>
+            h1{text-align: center;}
+            h2{text-align: center;}
+            .button {
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            margin-left: 570px;
+            margin-right: auto;
+}
+
+            .button1 {background-color: black;} 
+        </style>
+    </head>
+
+    <body>
+        <h1>Logged In Successfully!</h1>
+        <h2>Welcome</h2>
+        <button class="button button1" id="signout" >SIGN OUT</button>
+    </body>
+</html>
+
+
+<script type = "module">
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+    import { getAnalytics} from "https://www.gstatic.com/firebasejs/9.13.0/firebase-analytics.js";
+  //import { getAuth, onAuthStateChanged, getRedirectResult } from 'firebase/auth';
+  //import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+  import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
+  import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js";
+  
+  
+  
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+  
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDjToIub_kOd6334ksEabRIUiN_UtPXtTw",
+    authDomain: "fir-7d9ee.firebaseapp.com",
+    projectId: "fir-7d9ee",
+    storageBucket: "fir-7d9ee.appspot.com",
+    messagingSenderId: "493771331329",
+    appId: "1:493771331329:web:bfc2182cd7cc18ef40ed00",
+    measurementId: "G-8B04P7MD0P"
+  };
+  
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  
+  const auth =  getAuth(app);
+  const database = getDatabase(app);
+  
+  
+    //SignIn
+  signout.addEventListener('click',(e) =>{
+    signOut(auth).then(() => {
+  // Sign-out successful.
+  alert("Logged Out Successfully");
+  
+
+  
+
+}).catch((error) => {
+  // An error happened.
+  alert(error);
+});
+window.location.replace("login.html");
+  });
+    
+    
+</script>
