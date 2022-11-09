@@ -4,6 +4,9 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged, getRedirectResult } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,16 +27,24 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 const auth =  getAuth(app);
-onAuthStateChanged(auth, user => { /* check status */ });
+
 
   //signup function
   function signUp(){
     var email = document.getElementById("email");
     var password = document.getElementById("password");
 
-    const promise = auth.createUserWithEmailAndPassword(email.value,password.value);
+    createUserWithEmailAndPassword(auth,email.value,password.value).then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
     //
-    promise.catch(e=>alert(e.message));
     alert("SignUp Successfully");
   }
 
@@ -41,8 +52,17 @@ onAuthStateChanged(auth, user => { /* check status */ });
   function  signIn(){
     var email = document.getElementById("email");
     var password  = document.getElementById("password");
-    const promise = auth.signInWithEmailAndPassword(email.value,password.value);
-    promise.catch(e=>alert(e.message));
+    signInWithEmailAndPassword(auth,email.value,password.value).then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+  
+    //promise.catch(e=>alert(e.message));
     
   }
 
@@ -51,7 +71,7 @@ onAuthStateChanged(auth, user => { /* check status */ });
 
  
   //active user to homepage
-  firebase.auth().onAuthStateChanged((user)=>{
+  onAuthStateChanged(auth, (user) =>{
     if(user){
       var email = user.email;
       alert("Active user "+email);
