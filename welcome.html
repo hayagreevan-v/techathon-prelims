@@ -1,27 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Welcome user!</title>
-        <style>
-            h1{text-align: center;}
-            h2{text-align: center;}
-            .button {
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            margin-left: 570px;
-            margin-right: auto;
+  <head>
+    <title>Welcome user!</title>
+    <style>
+        h1{text-align: center;}
+        h2{text-align: center;}
+        .button {
+        position: relative;
+        background-color: skyblue;
+        font-weight: bold;
+        left:120px;
+        border: none;
+        color: black;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        margin-left: 570px;
+        margin-right: auto;
+        border-radius: 10px;
+}       
+.button:hover{
+background-color: rgb(71, 182, 226);
+
+
+}
+.button:active{
+background-color: rgb(24, 169, 227);
+border-color: black;
 }
 
-            .button1 {background-color: black;} 
-        </style>
-    </head>
+
+       
+    </style>
+</head>
+
 
     <body>
         <h1>Logged In Successfully!</h1>
@@ -37,8 +53,6 @@
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
     import { getAnalytics} from "https://www.gstatic.com/firebasejs/9.13.0/firebase-analytics.js";
-  //import { getAuth, onAuthStateChanged, getRedirectResult } from 'firebase/auth';
-  //import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
   import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
   import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js";
   
